@@ -1,0 +1,22 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:19092,localhost:29092,localhost:39092
+    producer:
+      retries: 3
+      properties:
+        enable.idempotence: true
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      auto-offset-reset: latest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    template:
+      default-topic: input
+server:
+  port: 8082
+distance:
+  threshold: 0.001
